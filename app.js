@@ -11,7 +11,9 @@ for (var i = 0, len = squares.length; i < len; i++) {
         //add an onclick to each square in your grid
         squares[i].onclick = function () {
             //if the square below your current square is taken, you can go ontop of it
-            if (squares[index + 6].classList.contains('taken')) {
+            if (squares[index + 6].classList.contains('taken') &&
+                !squares[index].classList.contains('taken') &&
+                result.textContent.length === 0) {
                 if (currentPlayer === 1) {
                     squares[index].classList.add('taken');
                     squares[index].classList.add('player-one');
@@ -28,7 +30,7 @@ for (var i = 0, len = squares.length; i < len; i++) {
             }
             else {
                 errMsg.removeAttribute('hidden');
-                setTimeout(()=>errMsg.setAttribute('hidden', true),500);
+                setTimeout(() => errMsg.setAttribute('hidden', true), 1000);
             }
         }
     })(i);
@@ -48,7 +50,7 @@ function checkBoard() {
         [12, 18, 24, 30], [1, 2, 3, 4], [5, 4, 3, 2], [8, 9, 10, 11], [12, 11, 10, 9], [15, 16, 17, 18], [19, 18, 17, 16],
         [22, 23, 24, 25], [26, 25, 24, 23], [29, 30, 31, 32], [33, 32, 31, 30], [36, 37, 38, 39], [40, 39, 38, 37], [7, 14, 21, 28],
         [8, 15, 22, 29], [9, 16, 23, 30], [10, 17, 24, 31], [11, 18, 25, 32], [12, 19, 26, 33], [13, 20, 27, 34]
-    ]
+    ];
     // now take the 4 values in each winning Arrays and plug them into the squares
     for (let y = 0; y < winningArrays.length; y++) {
         const square1 = squares[winningArrays[y][0]];
@@ -80,4 +82,4 @@ function checkBoard() {
     }
 }
 
-squares.forEach(square => square.addEventListener('click',checkBoard));
+squares.forEach(square => square.addEventListener('click', checkBoard));
